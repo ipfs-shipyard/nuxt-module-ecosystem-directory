@@ -1,0 +1,42 @@
+{
+  "name": "nuxt-module-ecosystem-directory",
+  "version": "1.0.0",
+  "description": "A Nuxt module that loads all the boilerplate layouts, pages, components, styles, stores and functionality to run the Ecosystem Directory.",
+  "keywords": [
+    "Nuxt",
+    "NuxtJS",
+    "IPFS",
+    "Interplanetary File System"
+  ],
+  "homepage": "https://github.com/ipfs-shipyard/nuxt-module-ecosystem-directory#readme",
+  "bugs": "https://github.com/ipfs-shipyard/nuxt-module-ecosystem-directory/issues",
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Agency Undone",
+    "email": "hello@agencyundone.com"
+  },
+  "contributors": [
+    {
+      "name": "Nauras Jabari",
+      "url": "https://github.com/timelytree"
+    },
+    {
+      "name": "Orun Bhuiyan",
+      "url": "https://github.com/orvn"
+    }
+  ],
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ipfs-shipyard/nuxt-module-ecosystem-directory"
+  },
+  "dependencies": {
+    "fs-extra": "^10.0.0"
+  },
+  "engines": {
+    "node": ">=12.21.0"
+  },
+  "devDependencies": {
+    "node-sass": "^6.0.1"
+  }
+}
