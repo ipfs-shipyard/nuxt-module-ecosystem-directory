@@ -91,6 +91,14 @@
   font-weight: 700;
 }
 
+@mixin focus_BoxShadow_Small {
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
+}
+
+@mixin focus_BoxShadow_Regular {
+  box-shadow: 0 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
 // ------------------------------------------------------------------- Animation
 @mixin animation ($animate...) {
   $max: length($animate);
