@@ -12,7 +12,7 @@
         <div class="navigation-content">
 
           <a :href="navigation.index.href" tabindex="0" class="logo-link focus-visible">
-            <Shipyard_Logo id="site-logo"/>
+            <Shipyard_Logo id="site-logo" />
           </a>
 
           <div
