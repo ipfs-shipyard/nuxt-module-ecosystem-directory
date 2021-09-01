@@ -1,6 +1,6 @@
 {
   "name": "nuxt-module-ecosystem-directory",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "A Nuxt module that loads all the boilerplate layouts, pages, components, styles, stores and functionality to run the Ecosystem Directory.",
   "keywords": [
     "Nuxt",
@@ -31,10 +31,11 @@
     "url": "https://github.com/ipfs-shipyard/nuxt-module-ecosystem-directory"
   },
   "dependencies": {
+    "filesize": "^8.0.0",
     "fs-extra": "^10.0.0"
   },
   "engines": {
-    "node": ">=12.21.0"
+    "node": ">=14.17.6"
   },
   "devDependencies": {
     "node-sass": "^6.0.1"
