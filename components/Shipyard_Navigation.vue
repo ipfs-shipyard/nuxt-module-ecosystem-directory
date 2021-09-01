@@ -12,7 +12,7 @@
         <div class="navigation-content">
 
           <a :href="navigation.index.href" tabindex="0" class="logo-link focus-visible">
-            <Shipyard_Logo />
+            <Shipyard_Logo id="site-logo" />
           </a>
 
           <div
@@ -189,7 +189,7 @@ export default {
   align-items: center;
 }
 
-#ipfs-logo,
+#site-logo,
 .navigation-link {
   cursor: pointer;
 }
@@ -198,10 +198,9 @@ export default {
   @include borderRadius_Medium;
 }
 
-#ipfs-logo {
+#site-logo {
   display: block;
   position: relative;
-  width: 8rem;
   opacity: 1.0;
   z-index: 100;
   transition: opacity 0.3s cubic-bezier(0.4, 0.0, 0.2, 1.0);
