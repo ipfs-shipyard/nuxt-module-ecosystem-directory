@@ -24,17 +24,28 @@
 
           <div :class="['navigation', { 'modal-open' : navOpen, 'transition-out': modalClosing }]">
             <div class="links-container">
-              <component
-                :is="link.type"
-                v-for="(link, index) in navigation.header"
-                :key="index"
-                :to="link.disabled ? '' : link.href"
-                :href="link.disabled ? '' : link.href"
-                :disabled="link.disabled"
-                :target="link.target"
-                class="navigation-link onhover-line focus-visible">
-                {{ link.label }}
-              </component>
+              <div class="navigation-link-item" v-for="(link, index) in navigation.header" :key="index">
+                <component
+                  :is="link.type"
+                  v-if="!link.links"
+                  :to="link.disabled ? '' : link.href"
+                  :href="link.disabled ? '' : link.href"
+                  :disabled="link.disabled"
+                  :target="link.target"
+                  class="navigation-link onhover-line focus-visible">
+                  {{ link.label }}
+                </component>
+                <div
+                  v-show="link.links"
+                  class="navigation-dropdown">
+                  <Shipyard_NavigationDropdown
+                    :items="link">
+                    <template #dropdown-icon>
+                      <Shipyard_ToggleIcon />
+                    </template>
+                  </Shipyard_NavigationDropdown>
+                </div>
+              </div>
             </div>
             <div :class="['social-icon-container', { 'visible': navOpen }]">
               <Shipyard_SocialIcons />
