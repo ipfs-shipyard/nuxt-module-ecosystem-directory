@@ -32,10 +32,12 @@
               v-if="project.primaryCta && project.primaryCta.url && project.primaryCta.text"
               :href="project.primaryCta.url"
               target="_blank"
-              class="primary-cta focus-visible"
-              :data-tooltip="generateToolTip(project.primaryCta.url)"
-              data-tooltip-theme="dark">
-              {{ project.primaryCta.text }}
+              class="primary-cta focus-visible">
+              <span
+                :data-tooltip="project.primaryCta.url"
+                data-tooltip-theme="dark">
+                {{ project.primaryCta.text }}
+              </span>
             </a>
             <nuxt-link to="/" class="secondary-cta focus-visible">
               <span class="text">
