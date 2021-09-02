@@ -54,7 +54,7 @@ import { mapGetters } from 'vuex'
 
 // =================================================================== Functions
 const checkScreenWidth = (instance) => {
-  if (!window.matchMedia('(max-width: 53.125rem)').matches && instance.navOpen) { // ← 768px requested interim solution
+  if (!window.matchMedia('(max-width: 53.125rem)').matches && instance.navOpen) {
     instance.toggleNav()
   }
 }
@@ -210,8 +210,6 @@ export default {
 }
 
 .navigation {
-  width: 100%;
-  max-width: 32rem; // ← requested interim solution
   @include small {
     display: none;
     flex-direction: column;
@@ -251,6 +249,9 @@ export default {
     font-size: 2.1875rem;
     font-weight: 500;
     line-height: 1.2;
+  }
+  &:not(:last-child) {
+    margin-right: 2rem;
   }
 }
 
