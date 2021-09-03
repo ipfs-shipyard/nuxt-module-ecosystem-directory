@@ -3,7 +3,6 @@
 
     <line
       class="svg-line search-svg-line"
-      :stroke="stroke"
       x1="11.51"
       y1="13.96"
       x2="13.91"
@@ -11,7 +10,6 @@
 
     <circle
       class="svg-circle search-svg-circle"
-      :stroke="stroke"
       cx="7.5"
       cy="7.5"
       r="6.5" />
@@ -23,14 +21,6 @@
 // ====================================================================== Export
 export default {
   name: 'ShipyardSearchIcon',
-
-  props: {
-    stroke: {
-      type: String,
-      default: '#1B1B1B',
-      required: false
-    }
-  }
 }
 </script>
 
@@ -43,6 +33,7 @@ export default {
 .search-svg-circle,
 .search-svg-line {
   fill: none;
+  stroke: #1B1B1B;
   stroke-linecap: round;
   stroke-width: 2px;
 }

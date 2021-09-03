@@ -6,14 +6,12 @@
       <path
         d="M0,0,6.389,6.5,7.863,8"
         transform="translate(571.608 72.1) rotate(180)"
-        :stroke="stroke"
         stroke-linecap="round"
         stroke-width="2" />
 
       <path
         d="M7.875,0,0,8"
         transform="translate(571.483 72.1) rotate(180)"
-        :stroke="stroke"
         stroke-linecap="round"
         stroke-width="2" />
 
@@ -26,13 +24,13 @@
 // ====================================================================== Export
 export default {
   name: 'ShipyardCloseIcon',
-
-  props: {
-    stroke: {
-      type: String,
-      default: '#181818',
-      required: false
-    }
-  }
 }
 </script>
+
+<style lang="scss" scoped>
+  svg {
+    path {
+      stroke: #181818;
+    }
+  }
+</style>

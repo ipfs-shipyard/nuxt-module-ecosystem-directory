@@ -6,7 +6,6 @@
       <path
         d="M0,0,3.439,4.061,4.233,5"
         transform="translate(8.517 4.998) rotate(180)"
-        :stroke="stroke"
         stroke-linecap="round"
         stroke-width="2" />
 
@@ -14,7 +13,6 @@
         x1="4.284"
         y2="4.998"
         transform="translate(4.284 4.998) rotate(180)"
-        :stroke="stroke"
         stroke-linecap="round"
         stroke-width="2" />
 
@@ -25,7 +23,6 @@
       <path
         d="M0,0,3.439,4.061,4.233,5"
         transform="translate(8.517 4.998) rotate(180)"
-        :stroke="stroke"
         stroke-linecap="round"
         stroke-width="2" />
 
@@ -33,7 +30,6 @@
         x1="4.284"
         y2="4.998"
         transform="translate(4.284 4.998) rotate(180)"
-        :stroke="stroke"
         stroke-linecap="round"
         stroke-width="2" />
 
@@ -46,13 +42,14 @@
 // ====================================================================== Export
 export default {
   name: 'ShipyardFirstArrowIcon',
-
-  props: {
-    stroke: {
-      type: String,
-      default: '#FFFFFF',
-      required: false
-    }
-  }
 }
 </script>
+
+<style lang="scss" scoped>
+  svg {
+    line,
+    path {
+      stroke: #FFFFFF;
+    }
+  }
+</style>
