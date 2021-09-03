@@ -96,16 +96,16 @@
             breaker="..."
             @navigateToPage="navigateToPage">
             <template #first-page>
-              <Shipyard_FirstArrowIcon stroke="#494949" />
+              <Shipyard_FirstArrowIcon class="first-arrow" />
             </template>
             <template #prev-page>
-              <Shipyard_PrevArrowIcon stroke="#494949" />
+              <Shipyard_PrevArrowIcon class="prev-arrow" />
             </template>
             <template #next-page>
-              <Shipyard_NextArrowIcon stroke="#494949" />
+              <Shipyard_NextArrowIcon class="next-arrow" />
             </template>
             <template #last-page>
-              <Shipyard_LastArrowIcon stroke="#494949" />
+              <Shipyard_LastArrowIcon class="last-arrow"/>
             </template>
           </PaginationControls>
 

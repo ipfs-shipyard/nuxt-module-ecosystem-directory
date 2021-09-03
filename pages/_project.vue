@@ -92,12 +92,12 @@
               <button
                 class="nav-arrow focus-visible"
                 @click="incrementLeft">
-                <Shipyard_PrevArrowIcon stroke="#052437" width="10" height="15" />
+                <Shipyard_PrevArrowIcon class="prev-arrow" width="10" height="15" />
               </button>
               <button
                 class="nav-arrow focus-visible"
                 @click="incrementRight">
-                <Shipyard_NextArrowIcon stroke="#052437" width="10" height="15" />
+                <Shipyard_NextArrowIcon class="next-arrow" width="10" height="15" />
               </button>
             </div>
             <div
