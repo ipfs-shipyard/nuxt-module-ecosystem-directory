@@ -32,7 +32,7 @@ const pages = [
   },
   {
     name: 'ipfs-shipyard-ecosystem-directory/showcase',
-    path: '/:slug',
+    path: '/showcase',
     component: Path.resolve(__dirname, 'pages/_showcase.vue'),
     chunkName: 'ipfs-shipyard-ecosystem-directory/showcase'
   }
@@ -141,13 +141,31 @@ const compileContent = (instance) => {
 // ////////////////////////////////////////////////////////////// registerRoutes
 const registerRoutes = (instance) => {
   return new Promise((next) => {
+    const settingsPath = Path.resolve(`${instance.options.rootDir}/static/content/core_settings.json`)
+    const settings = JSON.parse(Fs.readFileSync(settingsPath))
     // Register base routes/pages
     instance.extendRoutes((routes) => {
-      pages.forEach(page => routes.push(page))
+      pages.forEach((page) => {
+        if (page.path.includes('showcase')) {
+          page.path = page.path.replace('/showcase', settings.behavior.showcaseBaseRoute)
+        }
+        routes.push(page)
+      })
+    })
+    // Here we have almost manually add any other routes that need to be generated for static
+    const generate = []
+    pages.forEach((page) => {
+      if (page.path.includes('showcase')) {
+        generate.push({
+          route: page.path.replace('/showcase', settings.behavior.showcaseBaseRoute)
+        })
+      }
     })
     // Register all project pages and import payloads
     instance.options.generate.routes = () => {
-      return require(`${instance.options.rootDir}/static/content/project-routes.json`)
+      let routes = require(`${instance.options.rootDir}/static/content/project-routes.json`)
+      routes = routes.concat(generate)
+      return routes
     }
     next()
   })
