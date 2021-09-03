@@ -43,7 +43,7 @@
               <span class="text">
                 {{ secondaryCtaButtonText }}
               </span>
-              <SelectorToggleIcon />
+              <Shipyard_ChevronIcon />
             </nuxt-link>
           </div>
         </section>
@@ -213,7 +213,7 @@
                       {{ $getTaxonomyCategoryLabel(taxonomy.slug) }}
                     </h3>
                     <div>
-                      <SelectorToggleIcon class="dropdown-toggle" />
+                      <Shipyard_ChevronIcon class="dropdown-toggle" />
                     </div>
                   </div>
                 </AccordionHeader>
@@ -273,7 +273,6 @@ import Accordion from '@/modules/zero/core/Components/Accordion/Accordion'
 import AccordionHeader from '@/modules/zero/core/Components/Accordion/Header'
 import AccordionSection from '@/modules/zero/core/Components/Accordion/Section'
 import AccordionContent from '@/modules/zero/core/Components/Accordion/Content'
-import SelectorToggleIcon from '@/modules/zero/core/Components/Icons/SelectorToggle'
 
 // =================================================================== Functions
 const repositionSliderLeft = (instance) => {
@@ -294,8 +293,7 @@ export default {
     Accordion,
     AccordionHeader,
     AccordionSection,
-    AccordionContent,
-    SelectorToggleIcon
+    AccordionContent
   },
 
   layout: 'base',
