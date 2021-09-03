@@ -26,14 +26,14 @@
 <script>
 // ====================================================================== Export
 export default {
-  name: 'SelectorToggle',
+  name: 'ShipyardChevronIcon',
 }
 </script>
 
 <style lang="scss" scoped>
   .svg-dropdown {
     path {
-      stroke: #fff;
+      stroke: #222;
     }
   }
 </style>

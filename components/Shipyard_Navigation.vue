@@ -41,7 +41,7 @@
                   <Shipyard_NavigationDropdown
                     :items="link">
                     <template #dropdown-icon>
-                      <Shipyard_ToggleIcon />
+                      <Shipyard_ChevronIcon />
                     </template>
                   </Shipyard_NavigationDropdown>
                 </div>

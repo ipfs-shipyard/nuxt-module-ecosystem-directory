@@ -114,7 +114,7 @@
             :collection="sortedCollection"
             @changed="resultsPerPageSelectorChanged">
             <template #dropdown-icon>
-              <SelectorToggleIcon />
+              <Shipyard_ChevronIcon />
             </template>
           </ResultsPerPageSelector>
 
@@ -133,7 +133,6 @@ import FilterBar from '@/modules/zero/core/Components/FilterBar'
 import Paginate from '@/modules/zero/pagination/Components/Paginate'
 import PaginationControls from '@/modules/zero/pagination/Components/Controls'
 import ResultsPerPageSelector from '@/modules/zero/pagination/Components/ResultsPerPageSelector'
-import SelectorToggleIcon from '@/modules/zero/core/Components/Icons/SelectorToggle'
 
 // =================================================================== Functions
 const clearPanelHeight = (instance) => {
@@ -152,8 +151,7 @@ export default {
     FilterBar,
     Paginate,
     PaginationControls,
-    ResultsPerPageSelector,
-    SelectorToggleIcon
+    ResultsPerPageSelector
   },
 
   props: {

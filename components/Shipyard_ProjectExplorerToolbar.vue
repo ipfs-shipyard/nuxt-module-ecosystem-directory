@@ -38,7 +38,7 @@
         :default-sort="defaultSort"
         @changed="sortBySelectorChanged">
         <template #dropdown-icon>
-          <SelectorToggleIcon />
+          <Shipyard_ChevronIcon />
         </template>
       </SortBySelector>
 
@@ -65,7 +65,6 @@ import { mapGetters } from 'vuex'
 import Button from '@/modules/zero/core/Components/Button'
 import SortBySelector from '@/modules/zero/filters/Components/SortBySelector'
 import FiltersToggleIcon from '@/modules/zero/core/Components/Icons/FiltersToggle'
-import SelectorToggleIcon from '@/modules/zero/core/Components/Icons/SelectorToggle'
 
 // ====================================================================== Export
 export default {
@@ -74,8 +73,7 @@ export default {
   components: {
     Button,
     SortBySelector,
-    FiltersToggleIcon,
-    SelectorToggleIcon
+    FiltersToggleIcon
   },
 
   props: {

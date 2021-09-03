@@ -36,8 +36,8 @@
     <div id="slider-controls">
       <div id="slider-line">
         <div class="dummy-thumb" :style="`left: ${thumbPosition}px;`">
-          <SelectorToggleIcon class="chevron-left" />
-          <SelectorToggleIcon class="chevron-right" />
+          <Shipyard_ChevronIcon class="chevron-left" />
+          <Shipyard_ChevronIcon class="chevron-right" />
         </div>
         <input
           id="feature-range-slider"
@@ -57,8 +57,6 @@
 <script>
 // ===================================================================== Imports
 import { mapGetters } from 'vuex'
-
-import SelectorToggleIcon from '@/modules/zero/core/Components/Icons/SelectorToggle'
 
 // =================================================================== Functions
 const handleFeatureSliderResize = (instance) => {
@@ -87,10 +85,6 @@ const handleFeatureSliderResize = (instance) => {
 // ====================================================================== Export
 export default {
   name: 'ShipyardFeaturedProjectsSlider',
-
-  components: {
-    SelectorToggleIcon
-  },
 
   props: {
     parent: { // name of parent page, used for Countly
