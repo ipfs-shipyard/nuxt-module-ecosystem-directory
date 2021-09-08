@@ -20,7 +20,7 @@
           class="description"
           :data-tooltip="description.length >= 70 ? description : false"
           data-tooltip-theme="dark">
-          {{ $truncateString(description, 70) }}
+          {{ $TruncateString(description, 70) }}
         </p>
       </div>
 

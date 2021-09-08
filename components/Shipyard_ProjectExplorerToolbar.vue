@@ -3,18 +3,18 @@
 
     <div class="filter-panel-controls">
 
-      <Button
+      <Zero_Core__Button
         id="filter-panel-toggle-button"
         type="C"
         :text="filterPanelToggleButtonLabel"
         :class="['focus-visible', filterButtonFloating, { 'active': filterPanelOpen }]"
         @clicked="toggleFilterPanel">
         <template #icon-before>
-          <FiltersToggleIcon />
+          <Zero_Core__Icon_FiltersToggle />
         </template>
-      </Button>
+      </Zero_Core__Button>
 
-      <Button
+      <Zero_Core__Button
         v-if="selectedFiltersCount"
         id="clear-selected-filters-button"
         class="focus-visible"
@@ -24,13 +24,13 @@
         <template #icon-after>
           <Shipyard_CloseIcon />
         </template>
-      </Button>
+      </Zero_Core__Button>
 
     </div>
 
     <div class="radio-sort-wrapper">
 
-      <SortBySelector
+      <Zero_Filters__SortBySelector
         v-if="showSortBySelector"
         class="sort-by-selector"
         :label="sortDropdownLabel"
@@ -40,7 +40,7 @@
         <template #dropdown-icon>
           <Shipyard_ChevronIcon />
         </template>
-      </SortBySelector>
+      </Zero_Filters__SortBySelector>
 
       <div
         v-if="showViewToggleButton"
@@ -62,19 +62,9 @@
 // ===================================================================== Imports
 import { mapGetters } from 'vuex'
 
-import Button from '@/modules/zero/core/Components/Button'
-import SortBySelector from '@/modules/zero/filters/Components/SortBySelector'
-import FiltersToggleIcon from '@/modules/zero/core/Components/Icons/FiltersToggle'
-
 // ====================================================================== Export
 export default {
   name: 'ShipyardProjectExplorerToolbar',
-
-  components: {
-    Button,
-    SortBySelector,
-    FiltersToggleIcon
-  },
 
   props: {
     filterPanelOpen: {

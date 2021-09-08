@@ -6,7 +6,7 @@
     <div class="grid">
       <div class="col">
 
-        <Breadcrumbs
+        <Zero_Core__Breadcrumbs
           v-if="breadcrumbsVisible"
           :breadcrumbs="pageData.breadcrumbs" />
 
@@ -56,15 +56,9 @@
 // ===================================================================== Imports
 import { mapGetters } from 'vuex'
 
-import Breadcrumbs from '@/modules/zero/core/Components/Breadcrumbs'
-
 // ====================================================================== Export
 export default {
   name: 'ErrorPage',
-
-  components: {
-    Breadcrumbs
-  },
 
   props: {
     divisions: {

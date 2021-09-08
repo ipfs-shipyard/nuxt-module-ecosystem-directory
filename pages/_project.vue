@@ -4,7 +4,7 @@
     <div v-if="breadcrumbs" class="grid">
       <div class="col">
         <section id="section-breadcrumbs">
-          <Breadcrumbs v-if="breadcrumbs" :breadcrumbs="breadcrumbs" />
+          <Zero_Core__Breadcrumbs v-if="breadcrumbs" :breadcrumbs="breadcrumbs" />
         </section>
       </div>
     </div>
@@ -154,7 +154,7 @@
                           class="focus-visible"
                           :data-tooltip="generateToolTip(link.text)"
                           data-tooltip-theme="dark">
-                          {{ truncateLinks ? $truncateString(link.text, 12, '...', type = 'double') : link.text }}
+                          {{ truncateLinks ? $TruncateString(link.text, 12, '...', type = 'double') : link.text }}
                         </a>
                       </li>
                     </template>
@@ -197,17 +197,17 @@
         <section
           v-if="checkIfArrayOfNullObjectValues(project.taxonomies)"
           id="section-filters">
-          <Accordion
+          <Zero_Core__Accordion
             v-slot="{ active }"
             :multiple="true">
             <template v-for="(taxonomy, i) in taxonomies">
-              <AccordionSection
+              <Zero_Core__Accordion_Section
                 v-if="taxonomy.slug && taxonomy.tags"
                 :key="`taxonomy-category-${i}`"
                 :active="active"
                 :selected="true"
                 class="filters">
-                <AccordionHeader>
+                <Zero_Core__Accordion_Header>
                   <div tabindex="0" class="heading-wrapper focus-visible">
                     <h3 class="heading">
                       {{ $getTaxonomyCategoryLabel(taxonomy.slug) }}
@@ -216,8 +216,8 @@
                       <Shipyard_ChevronIcon class="dropdown-toggle" />
                     </div>
                   </div>
-                </AccordionHeader>
-                <AccordionContent>
+                </Zero_Core__Accordion_Header>
+                <Zero_Core__Accordion_Content>
                   <div class="chiclet-list">
                     <component
                       :is="chicletType"
@@ -228,10 +228,10 @@
                       {{ $getTaxonomyTagLabel(taxonomy.slug, taxonomyTag) }}
                     </component>
                   </div>
-                </AccordionContent>
-              </AccordionSection>
+                </Zero_Core__Accordion_Content>
+              </Zero_Core__Accordion_Section>
             </template>
-          </Accordion>
+          </Zero_Core__Accordion>
         </section>
       </div>
     </div>
@@ -268,12 +268,6 @@
 import { mapGetters } from 'vuex'
 import CloneDeep from 'lodash/cloneDeep'
 
-import Breadcrumbs from '@/modules/zero/core/Components/Breadcrumbs'
-import Accordion from '@/modules/zero/core/Components/Accordion/Accordion'
-import AccordionHeader from '@/modules/zero/core/Components/Accordion/Header'
-import AccordionSection from '@/modules/zero/core/Components/Accordion/Section'
-import AccordionContent from '@/modules/zero/core/Components/Accordion/Content'
-
 // =================================================================== Functions
 const repositionSliderLeft = (instance) => {
   if (window.matchMedia('(max-width: 25.9375rem)').matches && instance.$refs.sliderFlex) { // tiny
@@ -287,14 +281,6 @@ const repositionSliderLeft = (instance) => {
 // ====================================================================== Export
 export default {
   name: 'DetailPage',
-
-  components: {
-    Breadcrumbs,
-    Accordion,
-    AccordionHeader,
-    AccordionSection,
-    AccordionContent
-  },
 
   layout: 'base',
 
@@ -380,7 +366,7 @@ export default {
       return this.siteContent.settings
     },
     seo () {
-      return this.$getSeo(this.tag)
+      return this.$GetSeo(this.tag)
     },
     name () {
       return this.project.name
@@ -486,7 +472,7 @@ export default {
       return tags.filter(tag => this.$checkTaxonomyTagExists(categorySlug, tag))
     },
     getEmbedUrl (url) {
-      return this.$buildVideoEmbedUrl(this.$parseVideoUrl(url))
+      return this.$BuildVideoEmbedUrl(this.$ParseVideoUrl(url))
     },
     checkIfArrayOfNullObjectValues (array) {
       if (!Array.isArray(array) || array.length === 0) { return false }

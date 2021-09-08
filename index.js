@@ -19,22 +19,22 @@ import Manifestor from './scripts/manifestor'
 // /////////////////////////////////////////////////////////////////////// Pages
 const pages = [
   {
-    name: 'ipfs-shipyard-ecosystem-directory/index',
+    name: 'nuxt-module-ecosystem-directory/index',
     path: '/',
     component: Path.resolve(__dirname, 'pages/index.vue'),
-    chunkName: 'ipfs-shipyard-ecosystem-directory/index'
+    chunkName: 'nuxt-module-ecosystem-directory/index'
   },
   {
-    name: 'ipfs-shipyard-ecosystem-directory/project',
+    name: 'nuxt-module-ecosystem-directory/project',
     path: '/project/:id',
     component: Path.resolve(__dirname, 'pages/_project.vue'),
-    chunkName: 'ipfs-shipyard-ecosystem-directory/project'
+    chunkName: 'nuxt-module-ecosystem-directory/project'
   },
   {
-    name: 'ipfs-shipyard-ecosystem-directory/showcase',
+    name: 'nuxt-module-ecosystem-directory/showcase',
     path: '/showcase',
     component: Path.resolve(__dirname, 'pages/_showcase.vue'),
-    chunkName: 'ipfs-shipyard-ecosystem-directory/showcase'
+    chunkName: 'nuxt-module-ecosystem-directory/showcase'
   }
 ]
 
@@ -42,20 +42,25 @@ const pages = [
 const plugins = [
   {
     src: Path.resolve(__dirname, 'plugins/helpers.js'),
-    filename: 'ipfs-shipyard-ecosystem-directory/helpers.js'
+    filename: 'nuxt-module-ecosystem-directory/helpers.js'
   },
   {
     src: Path.resolve(__dirname, 'plugins/taxonomy-methods.js'),
-    filename: 'ipfs-shipyard-ecosystem-directory/taxonomy-methods.js'
+    filename: 'nuxt-module-ecosystem-directory/taxonomy-methods.js'
   },
   {
     src: Path.resolve(__dirname, 'plugins/global-components.js'),
-    filename: 'ipfs-shipyard-ecosystem-directory/global-components.js'
+    filename: 'nuxt-module-ecosystem-directory/global-components.js'
   },
   {
     src: Path.resolve(__dirname, 'plugins/register-store.js'),
-    filename: 'ipfs-shipyard-ecosystem-directory/register-store.js'
+    filename: 'nuxt-module-ecosystem-directory/register-store.js'
   }
+]
+
+// ///////////////////////////////////////////////////////////////////// Modules
+const modules = [
+  Path.resolve(__dirname, '../au-nuxt-module-zero')
 ]
 
 // ///////////////////////////////////////////////////////////////////// Layouts
@@ -63,17 +68,17 @@ const layouts = [
   {
     src: Path.resolve(__dirname, 'layouts/base.vue'),
     name: 'base',
-    filename: 'ipfs-shipyard-ecosystem-directory/base.vue'
+    filename: 'nuxt-module-ecosystem-directory/base.vue'
   },
   {
     src: Path.resolve(__dirname, 'layouts/showcase.vue'),
     name: 'showcase',
-    filename: 'ipfs-shipyard-ecosystem-directory/showcase.vue'
+    filename: 'nuxt-module-ecosystem-directory/showcase.vue'
   },
   {
     src: Path.resolve(__dirname, 'layouts/error.vue'),
     name: 'error',
-    filename: 'ipfs-shipyard-ecosystem-directory/error.vue'
+    filename: 'nuxt-module-ecosystem-directory/error.vue'
   }
 ]
 
@@ -179,14 +184,14 @@ const registerLayouts = (instance) => {
   })
 }
 
-// ////////////////////////////////////////////////////////// registerComponents
-const registerComponents = (instance) => {
+// /////////////////////////////////////////////////////////// compileComponents
+const compileComponents = (instance) => {
   return new Promise((next) => {
     const componentsDir = `${instance.options.rootDir}/components`
     plugins.forEach((plugin) => {
       // Need to pass component name list to global-components.js, which subsequently
       // loads all the module components as global ones for app-wide use
-      if (plugin.filename === 'ipfs-shipyard-ecosystem-directory/global-components.js') {
+      if (plugin.filename === 'nuxt-module-ecosystem-directory/global-components.js') {
         plugin.options = []
         Path.resolve(__dirname, 'layouts/error.vue')
         const components = Fs.readdirSync(`${__dirname}/components`).filter(file => file !== '.DS_Store')
@@ -213,7 +218,7 @@ const compileStore = (instance) => {
   return new Promise((next) => {
     const contentDir = instance.options.rootDir
     plugins.forEach((plugin) => {
-      if (plugin.filename === 'ipfs-shipyard-ecosystem-directory/register-store.js') {
+      if (plugin.filename === 'nuxt-module-ecosystem-directory/register-store.js') {
         plugin.options = []
         const storePath = Path.resolve(__dirname, 'store')
         const stores = Fs.readdirSync(storePath).filter(store => store !== '.DS_Store')
@@ -241,11 +246,22 @@ const registerPlugins = (instance) => {
     // Add Countly plugin if required
     const initialize = instance.options.hasOwnProperty('countly') && instance.options.countly.initialize
     if (initialize) {
+      // console.log(Path.resolve(__dirname))
       instance.addPlugin({
-        src: Path.resolve(instance.options.rootDir, 'modules/zero/core/Plugins/countly.js'),
-        filename: 'ipfs-shipyard-ecosystem-directory/countly.js'
+        src: Path.resolve(__dirname, '../au-nuxt-module-zero/core/plugins/countly.js'),
+        filename: 'nuxt-module-ecosystem-directory/countly.js'
       })
     }
+    next()
+  })
+}
+
+// ///////////////////////////////////////////////////////////// registerModules
+const registerModules = (instance) => {
+  return new Promise((next) => {
+    modules.forEach((src) => {
+      instance.addModule(src)
+    })
     next()
   })
 }
@@ -270,9 +286,10 @@ export default async function () {
   await Manifestor(this)
   await registerRoutes(this)
   await registerLayouts(this)
-  await registerComponents(this)
+  await compileComponents(this)
   await compileStore(this)
   await registerPlugins(this)
+  await registerModules(this)
   await registerAssets(this)
   console.log(`📦 [Module] IPFS Shipyard Ecosystem Directory`)
 }

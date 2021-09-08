@@ -246,7 +246,7 @@ export default {
     },
     // SEO
     seo () {
-      return this.$getSeo(this.tag)
+      return this.$GetSeo(this.tag)
     },
     // Page Content
     generalPageData () {

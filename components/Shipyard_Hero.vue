@@ -7,7 +7,7 @@
 
       <div :class="`grid-noGutter ${headerState} hero-breadcrumbs`">
         <div class="col">
-          <Breadcrumbs v-if="breadcrumbs" :breadcrumbs="breadcrumbs" />
+          <Zero_Core__Breadcrumbs v-if="breadcrumbs" :breadcrumbs="breadcrumbs" />
         </div>
       </div>
 
@@ -77,15 +77,9 @@
 // ===================================================================== Imports
 import { mapGetters } from 'vuex'
 
-import Breadcrumbs from '@/modules/zero/core/Components/Breadcrumbs'
-
 // ====================================================================== Export
 export default {
   name: 'ShipyardHero',
-
-  components: {
-    Breadcrumbs
-  },
 
   data () {
     return {
@@ -152,7 +146,7 @@ export default {
     },
     headerState () {
       const route = this.$route
-      if (route.name === 'ipfs-shipyard-ecosystem-directory/index') {
+      if (route.name === 'nuxt-module-ecosystem-directory/index') {
         if (route.query.filters === 'enabled') {
           if (this.selectedFilters.length || this.filterValue !== '') {
             return 'filters-applied'

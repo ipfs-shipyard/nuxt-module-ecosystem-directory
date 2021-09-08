@@ -35,14 +35,14 @@
             {{ filterPanelHeading }}
           </h4>
 
-          <FilterBar
+          <Zero_Core__FilterBar
             id="filter-bar"
             :filter-value="searchQuery"
             action="store">
             <template #icon>
               <Shipyard_SearchIcon />
             </template>
-          </FilterBar>
+          </Zero_Core__FilterBar>
 
         </div>
 
@@ -56,7 +56,7 @@
       <!-- ================================================== Paginated List -->
       <div id="paginated-list">
 
-        <Paginate
+        <Zero_Pagination__Paginate
           v-if="sortedCollection"
           v-slot="{ paginated }"
           :display="display"
@@ -77,7 +77,7 @@
               :class="projectCardColumns"
               :style="`animation-delay: ${30 * index}ms`" />
           </div>
-        </Paginate>
+        </Zero_Pagination__Paginate>
 
         <div v-else class="placeholder-results-empty">
           {{ pageData.section_filter.results_empty_placeholder }}
@@ -92,7 +92,7 @@
           v-if="sortedCollection && showPaginationControls"
           id="paginated-list-navigation-controls">
 
-          <PaginationControls
+          <Zero_Pagination__Controls
             breaker="..."
             @navigateToPage="navigateToPage">
             <template #first-page>
@@ -107,16 +107,16 @@
             <template #last-page>
               <Shipyard_LastArrowIcon class="last-arrow"/>
             </template>
-          </PaginationControls>
+          </Zero_Pagination__Controls>
 
-          <ResultsPerPageSelector
+          <Zero_Pagination__ResultsPerPageSelector
             :label="resultsPerPageDropdownLabel"
             :collection="sortedCollection"
             @changed="resultsPerPageSelectorChanged">
             <template #dropdown-icon>
               <Shipyard_ChevronIcon />
             </template>
-          </ResultsPerPageSelector>
+          </Zero_Pagination__ResultsPerPageSelector>
 
         </div>
       </div>
@@ -128,11 +128,7 @@
 <script>
 // ===================================================================== Imports
 import { mapGetters, mapActions } from 'vuex'
-
-import FilterBar from '@/modules/zero/core/Components/FilterBar'
-import Paginate from '@/modules/zero/pagination/Components/Paginate'
-import PaginationControls from '@/modules/zero/pagination/Components/Controls'
-import ResultsPerPageSelector from '@/modules/zero/pagination/Components/ResultsPerPageSelector'
+import Throttle from 'lodash/throttle'
 
 // =================================================================== Functions
 const clearPanelHeight = (instance) => {
@@ -146,13 +142,6 @@ const clearPanelHeight = (instance) => {
 // ====================================================================== Export
 export default {
   name: 'ShipyardProjectExplorer',
-
-  components: {
-    FilterBar,
-    Paginate,
-    PaginationControls,
-    ResultsPerPageSelector
-  },
 
   props: {
     defaultview: {
@@ -269,7 +258,7 @@ export default {
     }
     clearPanelHeight(this)
     this.positionFilterPanelButton()
-    this.scroll = this.$throttle(this.positionFilterPanelButton, 10)
+    this.scroll = Throttle(this.positionFilterPanelButton, 10)
     window.addEventListener('scroll', this.scroll)
   },
 

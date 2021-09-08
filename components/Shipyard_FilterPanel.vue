@@ -1,5 +1,5 @@
 <template>
-  <Filters
+  <Zero_Filters__Filters
     v-if="ProjectFilters"
     id="filter-panel"
     :projects="collection"
@@ -7,16 +7,16 @@
     :selected="selectedTags">
     <div id="filter-accordion">
 
-      <Accordion
+      <Zero_Core__Accordion
         v-slot="{ active }"
         :multiple="true">
         <template v-for="(heading, i) in ProjectFilters">
-          <AccordionSection
+          <Zero_Core__Accordion_Section
             :key="`taxonomy-category-${i}`"
             :active="active"
             :selected="true"
             class="filter-category container">
-            <AccordionHeader class="filter-category heading-wrapper">
+            <Zero_Core__Accordion_Header class="filter-category heading-wrapper">
               <div
                 tabindex="0"
                 class="filter-category heading focus-visible">
@@ -37,8 +37,8 @@
               <div>
                 <Shipyard_ChevronIcon class="dropdown-toggle"/>
               </div>
-            </AccordionHeader>
-            <AccordionContent>
+            </Zero_Core__Accordion_Header>
+            <Zero_Core__Accordion_Content>
               <div class="filter-category chiclet-list">
                 <div
                   v-if="includeFilterAllTag"
@@ -58,10 +58,10 @@
                   {{ tag.label }}
                 </div>
               </div>
-            </AccordionContent>
-          </AccordionSection>
+            </Zero_Core__Accordion_Content>
+          </Zero_Core__Accordion_Section>
         </template>
-      </Accordion>
+      </Zero_Core__Accordion>
 
       <div id="filter-panel-controls" class="bottom-buttons">
         <button
@@ -76,18 +76,12 @@
       </div>
 
     </div>
-  </Filters>
+  </Zero_Filters__Filters>
 </template>
 
 <script>
 // ===================================================================== Imports
 import { mapGetters, mapActions } from 'vuex'
-
-import Filters from '@/modules/zero/filters/Components/Filters'
-import Accordion from '@/modules/zero/core/Components/Accordion/Accordion'
-import AccordionHeader from '@/modules/zero/core/Components/Accordion/Header'
-import AccordionSection from '@/modules/zero/core/Components/Accordion/Section'
-import AccordionContent from '@/modules/zero/core/Components/Accordion/Content'
 
 // =================================================================== Functions
 const toggleAllCategoryTags = (instance, heading) => {
@@ -123,14 +117,6 @@ const toggleAllCategoryTags = (instance, heading) => {
 
 export default {
   name: 'ShipyardFilterPanel',
-
-  components: {
-    Filters,
-    Accordion,
-    AccordionHeader,
-    AccordionSection,
-    AccordionContent
-  },
 
   props: {
     collection: {

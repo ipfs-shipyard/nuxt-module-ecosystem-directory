@@ -112,7 +112,7 @@ export default {
     },
     // SEO
     seo () {
-      return this.$getSeo(this.tag)
+      return this.$GetSeo(this.tag)
     },
     showcase () {
       return this.siteContent.showcase.page_content
