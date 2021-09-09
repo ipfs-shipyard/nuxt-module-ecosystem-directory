@@ -137,6 +137,12 @@ const createLabels = (instance, projects) => {
   return false
 }
 
+const getLongestWord = (label) => {
+  const arr = []
+  label.split(' ').forEach((word) => { arr.push(word.split('').length) })
+  return Math.max(...arr)
+}
+
 // ====================================================================== Export
 export default {
   name: 'ShipyardSegmentSlider',
