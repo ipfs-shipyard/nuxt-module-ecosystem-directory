@@ -28,27 +28,27 @@
             <span
               v-if="item.above"
               class="segment-label noselect avoid-me"
-              :style="`width: ${Math.min(item.chars, 15) * 8}px; top: ${item.pos}px`">
+              :style="`width: ${Math.min(item.chars, 15) * 8}px; top: ${item.pos * scalar}px`">
               {{ item.label }}
             </span>
 
             <span
               v-else
               class="segment-label noselect avoid-me"
-              :style="`width: ${Math.min(item.chars, 15) * 8}px; top: ${-1 * (item.pos) + segH / 2}px`">
+              :style="`width: ${Math.min(item.chars, 15) * 8}px; top: ${-1 * (item.pos * scalar) + segH / 2}px`">
               {{ item.label }}
             </span>
 
             <div
               v-if="item.above"
               class="segment-line avoid-me"
-              :style="`top: ${-6}px; height: ${Math.abs(item.pos) - item.labelHeight - 12}px; transform: rotate(180deg);`">
+              :style="`top: ${-6}px; height: ${Math.abs(item.pos * scalar) - item.labelHeight - 12}px; transform: rotate(180deg);`">
             </div>
 
             <div
               v-else
               class="segment-line avoid-me"
-              :style="`top: ${segH + 6}px; height: ${Math.abs(item.pos) - 26}px`">
+              :style="`top: ${segH + 6}px; height: ${Math.abs(item.pos * scalar) - 26}px`">
             </div>
 
           </template>
@@ -185,6 +185,7 @@ export default {
   data () {
     return {
       segH: 30,
+      scalar: 1.3,
       segments: this.chartItems,
       measured: false,
       timeOutFunction: null,

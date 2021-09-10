@@ -104,8 +104,14 @@
 
 #segment-slider-chart {
   // -------------------------------------------------------------------- Mobile
+  @include medium {
+    background-color: white;
+  }
   .segments-tiny {
     background-color: $site_backgroundColor;
+    @include medium {
+      background-color: white;
+    }
   }
   // ------------------------------------------------------------------ Segments
   .segment-foreground {
