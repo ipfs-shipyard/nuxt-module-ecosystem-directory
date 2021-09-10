@@ -184,6 +184,23 @@
 // //////////////////////////////////////////////////////////////// Filter Panel
 // -----------------------------------------------------------------------------
 // --------------------------------------------------------------------- General
+#filter-panel-wrapper {
+  #filter-bar {
+    .icon-container {
+      width: 1.875rem;
+      height: 100%;
+      svg {
+        height: 1rem;
+        width: 1rem;
+        line,
+        circle {
+          stroke: #BFBFBF;
+        }
+      }
+    }
+  }
+}
+
 #filter-panel {
   .filter-category {
     &.heading {
