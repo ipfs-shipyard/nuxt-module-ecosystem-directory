@@ -108,6 +108,7 @@ export default {
 <style lang="scss" scoped>
 // ///////////////////////////////////////////////////////////////////// General
 .project-card {
+  position: relative;
   padding: 0 0.5rem 1rem;
   opacity: 0;
   animation: fadein 0.3s 1;
