@@ -236,7 +236,9 @@
       </div>
     </div>
 
-    <section id="section-featured-slider">
+    <section
+      v-if="showFeaturedSlider"
+      id="section-featured-slider">
       <div class="outerbox">
         <div class="featured-box">
           <div class="grid-center">
@@ -417,6 +419,9 @@ export default {
     },
     taxonomies () {
       return this.project.taxonomies.filter(tax => this.$checkTaxonomyCategoryExists(tax.slug))
+    },
+    showFeaturedSlider () {
+      return this.siteContent.settings.visibility.featuredSlider
     },
     moreThanTwo () {
       let amt = 0
