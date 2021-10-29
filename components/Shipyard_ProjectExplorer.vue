@@ -58,7 +58,7 @@
 
         <Zero_Pagination__Paginate
           v-if="sortedCollection"
-          v-slot="{ paginated }"
+          v-slot="{ paginated, paginatedCount }"
           :display="display"
           :collection="sortedCollection"
           class="paginate-root">
@@ -75,7 +75,7 @@
               :navigation-behavior="projectCardBehavior"
               :enable-image-alt="enableImageAlt"
               :class="projectCardColumns"
-              :style="`animation-delay: ${30 * index}ms`" />
+              :style="{ animationDelay: `${30 * index}ms`, zIndex: paginatedCount - index }" />
           </div>
         </Zero_Pagination__Paginate>
 
@@ -499,6 +499,10 @@ $paginateRoot_PaddingOffset: 3.5rem;
   @include containerMaxMQ {
     width: 100%;
   }
+}
+
+.project-card {
+
 }
 
 .placeholder-results-empty {
