@@ -10,6 +10,10 @@
     "lastTag": "other",
     "externalLinksTargetBlank": true,
     "tagMatchType": "or",
+    "targetCategoryMatch": {
+      "categorySlug": "",
+      "tagMatchType": "and"
+    },
     "excludeFilterAllTag": true,
     "includeGranularFilterClearButton": true
   },
