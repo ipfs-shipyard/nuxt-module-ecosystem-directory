@@ -50,82 +50,15 @@
       </div>
 
       <div class="col-6_md-10_mi-12" data-push-left="off-1_md-0">
-        <section v-if="project.stats" id="section-statistics">
 
-          <template v-for="(stat, i) in project.stats">
-            <div
-              v-if="stat.value && stat.label"
-              :key="`big-number-${i}`"
-              :class="['card', 'big-number', { 'hide-tiny': moreThanTwo } ]">
-              <p class="statistic">
-                {{ stat.value }}
-              </p>
-              <p class="description">
-                {{ stat.label }}
-              </p>
-            </div>
-          </template>
+        <Shipyard_SingularStats
+          :project="project"
+          :mobile="moreThanTwo"
+          :slider="slider"
+          @increment-left="incrementLeft"
+          @increment-right="incrementRight"
+          @on-swipe="onSwipe"/>
 
-          <div
-            v-if="project.ctaCard && project.ctaCard.title && project.ctaCard.description"
-            :class="['card', 'case-study', { 'hide-tiny': moreThanTwo } ]">
-            <p v-if="project.ctaCard.title" class="title">
-              {{ project.ctaCard.title }}
-            </p>
-            <p v-if="project.ctaCard.description" class="description">
-              {{ project.ctaCard.description }}
-            </p>
-            <a
-              v-if="project.ctaCard.url && project.ctaCard.buttonText"
-              class="cta focus-visible"
-              :href="project.ctaCard.url"
-              target="_blank">
-              {{ project.ctaCard.buttonText }}
-            </a>
-          </div>
-
-          <div
-            v-if="moreThanTwo"
-            class="slider-display col-6_md-8_mi-10_ti-12">
-            <div
-              class="slide-nav">
-              <button
-                class="nav-arrow focus-visible"
-                @click="incrementLeft">
-                <Shipyard_PrevArrowIcon class="prev-arrow" width="10" height="15" />
-              </button>
-              <button
-                class="nav-arrow focus-visible"
-                @click="incrementRight">
-                <Shipyard_NextArrowIcon class="next-arrow" width="10" height="15" />
-              </button>
-            </div>
-            <div
-              ref="sliderFlex"
-              class="slider-flex slider-transition">
-              <div
-                v-for="slide in slider"
-                :key="slide.label || slide.title"
-                v-hammer:swipe.horizontal="onSwipe"
-                :class="['card', (slide.label ? 'big-number' : 'case-study'), 'slider-mobile', { 'more-than-two' : moreThanTwo }]">
-                <p :class="(slide.label ? 'statistic' : 'title')">
-                  {{ slide.value || slide.title }}
-                </p>
-                <p class="description">
-                  {{ slide.label || slide.description }}
-                </p>
-                <a
-                  v-if="slide.url && slide.buttonText"
-                  class="cta"
-                  :href="slide.url"
-                  target="_blank">
-                  {{ slide.buttonText }}
-                </a>
-              </div>
-            </div>
-          </div>
-
-        </section>
       </div>
     </div>
 
@@ -447,9 +380,8 @@ export default {
           const cta = CloneDeep(this.project.ctaCard)
           items.push(cta)
         }
-        return items
       }
-      return false
+      return items
     },
     chicletType () {
       if (!this.settings.visibility.singularTagLinks) {
@@ -643,14 +575,14 @@ export default {
 }
 
 // //////////////////////////////////////////////////////// [Section] Statistics
-#section-statistics {
+::v-deep #section-statistics {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   margin-bottom: 2rem;
 }
 
-.card {
+::v-deep .card {
   @include borderRadius_Medium;
   display: flex;
   flex-direction: column;
@@ -756,7 +688,7 @@ export default {
   }
 }
 
-.slider-display {
+::v-deep .slider-display {
   overflow: hidden;
   display: none;
   @include tiny {
@@ -764,7 +696,7 @@ export default {
   }
 }
 
-.slider-flex {
+::v-deep .slider-flex {
   display: none;
   @include tiny {
     position: relative;
@@ -773,11 +705,11 @@ export default {
   }
 }
 
-.slider-transition {
+::v-deep .slider-transition {
   transition: all 500ms ease-in-out;
 }
 
-.slider-mobile {
+::v-deep .slider-mobile {
   display: none;
   &.more-than-two {
     @include tiny {
@@ -795,7 +727,7 @@ export default {
   }
 }
 
-.slide-nav {
+::v-deep .slide-nav {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -805,7 +737,7 @@ export default {
   }
 }
 
-.nav-arrow {
+::v-deep .nav-arrow {
   @include borderRadius_Medium;
   transform: translateY(calc(100% + 1.5rem));
   display: flex;
