@@ -51,13 +51,12 @@
 
       <div class="col-6_md-10_mi-12" data-push-left="off-1_md-0">
 
-        <Shipyard_SingularStats
+        <component
+          :is="pageTopRightComponent"
           :project="project"
           :mobile="moreThanTwo"
           :slider="slider"
-          @increment-left="incrementLeft"
-          @increment-right="incrementRight"
-          @on-swipe="onSwipe"/>
+          :class="{ 'video-top' : pageTopRightComponent === 'Shipyard_SingularVideo' }" />
 
       </div>
     </div>
@@ -111,18 +110,12 @@
           </dl>
         </section>
 
-        <section
-          v-if="project.video && getEmbedUrl(project.video)"
-          id="section-video">
-          <div class="video-wrapper">
-            <iframe
-              :src="getEmbedUrl(project.video)"
-              class="video"
-              allow="autoplay; encrypted-media"
-              allowfullscreen>
-            </iframe>
-          </div>
-        </section>
+        <component
+          :is="pageBottomLeftComponent"
+          :project="project"
+          :mobile="moreThanTwo"
+          :slider="slider"
+          :class="{ 'stats-bottom' : pageBottomLeftComponent === 'Shipyard_SingularStats' }" />
 
       </div>
 
@@ -203,16 +196,6 @@
 import { mapGetters } from 'vuex'
 import CloneDeep from 'lodash/cloneDeep'
 
-// =================================================================== Functions
-const repositionSliderLeft = (instance) => {
-  if (window.matchMedia('(max-width: 25.9375rem)').matches && instance.$refs.sliderFlex) { // tiny
-    const slide = instance.$refs.sliderFlex.firstChild
-    const amt = (instance.slider.length === 4) ? 1 : 0
-    const shift = slide.offsetWidth + (2 * parseFloat(getComputedStyle(slide).marginLeft))
-    instance.$refs.sliderFlex.style.left = (amt * ((shift / 2) * -1)) + 'px'
-  }
-}
-
 // ====================================================================== Export
 export default {
   name: 'DetailPage',
@@ -236,8 +219,6 @@ export default {
     return {
       tag: 'project',
       id: `project-${id}`,
-      initSlider: false,
-      resize: false,
       project: false
     }
   },
@@ -356,6 +337,15 @@ export default {
     showFeaturedSlider () {
       return this.siteContent.settings.visibility.featuredSlider
     },
+    swapVideoPositionSingular () {
+      return this.siteContent.settings.visibility.swapVideoPositionSingular
+    },
+    pageTopRightComponent () {
+      return this.swapVideoPositionSingular ? 'Shipyard_SingularVideo' : 'Shipyard_SingularStats'
+    },
+    pageBottomLeftComponent () {
+      return this.swapVideoPositionSingular ? 'Shipyard_SingularStats' : 'Shipyard_SingularVideo'
+    },
     moreThanTwo () {
       let amt = 0
       const len = this.project.stats.length
@@ -394,22 +384,9 @@ export default {
     }
   },
 
-  mounted () {
-    repositionSliderLeft(this)
-    this.resize = () => { repositionSliderLeft(this) }
-    window.addEventListener('resize', this.resize)
-  },
-
-  beforeDestroy () {
-    if (this.resize) { window.removeEventListener('resize', this.resize) }
-  },
-
   methods: {
     filterTags (categorySlug, tags = []) {
       return tags.filter(tag => this.$checkTaxonomyTagExists(categorySlug, tag))
-    },
-    getEmbedUrl (url) {
-      return this.$BuildVideoEmbedUrl(this.$ParseVideoUrl(url))
     },
     checkIfArrayOfNullObjectValues (array) {
       if (!Array.isArray(array) || array.length === 0) { return false }
@@ -437,45 +414,6 @@ export default {
         return null
       }
       return text.length > 23 ? text : false
-    },
-    incrementLeft () {
-      this.$refs.sliderFlex.classList.remove('slider-transition')
-      const flex = this.$refs.sliderFlex
-      const last = flex.lastElementChild
-      const first = flex.firstElementChild
-      flex.insertBefore(last, first)
-
-      const slide = this.$refs.sliderFlex.firstChild
-      const shift = slide.offsetWidth + (2 * parseFloat(getComputedStyle(slide).marginLeft))
-
-      flex.style.left = parseFloat(flex.style.left) + shift * -1 + 'px'
-      setTimeout(() => {
-        this.$refs.sliderFlex.classList.add('slider-transition')
-        flex.style.left = parseFloat(flex.style.left) + shift + 'px'
-      }, 100)
-    },
-    incrementRight () {
-      this.$refs.sliderFlex.classList.remove('slider-transition')
-      const flex = this.$refs.sliderFlex
-      const last = flex.lastElementChild
-      const first = flex.firstElementChild
-      last.parentNode.insertBefore(first, last.nextSibling)
-
-      const slide = this.$refs.sliderFlex.firstChild
-      const shift = slide.offsetWidth + (2 * parseFloat(getComputedStyle(slide).marginLeft))
-
-      flex.style.left = parseFloat(flex.style.left) + shift + 'px'
-      setTimeout(() => {
-        this.$refs.sliderFlex.classList.add('slider-transition')
-        flex.style.left = parseFloat(flex.style.left) + shift * -1 + 'px'
-      }, 100)
-    },
-    onSwipe (e) {
-      if (e.type === 'swipeleft') {
-        this.incrementRight()
-      } else if (e.type === 'swiperight') {
-        this.incrementLeft()
-      }
     }
   }
 }
@@ -574,194 +512,6 @@ export default {
   }
 }
 
-// //////////////////////////////////////////////////////// [Section] Statistics
-::v-deep #section-statistics {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  margin-bottom: 2rem;
-}
-
-::v-deep .card {
-  @include borderRadius_Medium;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  width: calc(50% - 0.5rem);
-  padding: 3rem;
-  margin-bottom: 1rem;
-  @include small {
-    padding: 2rem;
-  }
-  @include mini {
-    padding: 1rem;
-  }
-  @include tiny {
-    min-width: calc(100vw - 4rem);
-    max-width: calc(100vw - 4rem);
-    width: calc(100vw - 4rem) !important;
-    box-sizing: border-box;
-    padding: 2rem;
-  }
-  &:nth-child(odd) {
-    margin-right: 1rem;
-    @include tiny {
-      margin-right: 0;
-    }
-  }
-  &.big-number {
-    @include mini {
-      padding: 2rem 1rem;
-    }
-    @include tiny {
-      padding: 3rem 2rem;
-    }
-    .statistic {
-      @include leading_Mini;
-      font-size: 2.625rem;
-      @include small {
-        @include fontSize_ExtraLarge;
-      }
-      @include tiny {
-        margin-top: 1.5rem;
-        @include fontSize_ExtraExtraLarge;
-      }
-    }
-    .description {
-      @include fontSize_Large;
-      @include leading_Mini;
-      @include small {
-        margin-bottom: 1rem;
-      }
-      @include tiny {
-        margin-top: 1rem;
-      }
-    }
-  }
-  &.case-study {
-    border-width: 2px;
-    border-style: solid;
-    @include tiny {
-      padding: 3rem 2rem;
-    }
-    .title {
-      @include fontSize_Large;
-      @include leading_Mini;
-      @include tiny {
-        margin: 1rem 0;
-      }
-    }
-    .description {
-      @include fontSize_Small;
-      @include leading_Mini;
-      @include tiny {
-        margin-bottom: 1rem;
-      }
-    }
-    .cta {
-      @include borderRadius_Medium;
-      @include fontSize_Small;
-      padding: 0.5625rem 2rem;
-      margin-top: 2rem;
-      font-weight: 600;
-      border: 2px solid;
-      transition: 250ms ease-out;
-      &:hover {
-        transition: 250ms ease-in;
-        color: white;
-      }
-    }
-  }
-  &.hide-tiny {
-    @include tiny {
-      display: none;
-    }
-  }
-  .statistic,
-  .title {
-    margin-bottom: 1rem;
-    @include tiny {
-      margin-bottom: 0;
-    }
-  }
-}
-
-::v-deep .slider-display {
-  overflow: hidden;
-  display: none;
-  @include tiny {
-    display: block;
-  }
-}
-
-::v-deep .slider-flex {
-  display: none;
-  @include tiny {
-    position: relative;
-    display: flex;
-    justify-content: center;
-  }
-}
-
-::v-deep .slider-transition {
-  transition: all 500ms ease-in-out;
-}
-
-::v-deep .slider-mobile {
-  display: none;
-  &.more-than-two {
-    @include tiny {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      flex: 1 1 auto;
-      margin: 0 1rem;
-    }
-    &.big-number {
-      @include tiny {
-        flex-direction: column-reverse;
-      }
-    }
-  }
-}
-
-::v-deep .slide-nav {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  @include tiny {
-    justify-content: space-around;
-  }
-}
-
-::v-deep .nav-arrow {
-  @include borderRadius_Medium;
-  transform: translateY(calc(100% + 1.5rem));
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  padding: 0.5rem;
-  margin: 0rem 1.5rem;
-  color: rgba(0, 0, 0, 0.5);
-  border: none;
-  font-weight: 900;
-  width: 3.75rem;
-  z-index: 100;
-  @include small {
-    width: auto;
-  }
-  &:hover {
-    color: rgb(2, 28, 54);
-  }
-  &:focus {
-    outline: none;
-  }
-}
-
 // ////////////////////////////////////////////////////////// [Section] Key Info
 #section-key-info {
   .heading {
@@ -840,6 +590,9 @@ export default {
 // ///////////////////////////////////////////////////////////// [Section] Video
 #section-video {
   margin-top: 4rem;
+  &.video-top {
+    margin-top: 0rem;
+  }
 }
 
 .video {
