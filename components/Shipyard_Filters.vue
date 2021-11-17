@@ -105,7 +105,7 @@ export default {
     },
     filtered () {
       let collection = []
-      if (this.targets.length) {
+      if (this.targets.length && this.selected.length) {
         this.targets.forEach((category) => {
           const selection = this.selected.filter((tag) => category.tags.includes(tag))
           if (selection.length) {
@@ -128,7 +128,7 @@ export default {
           collection = filterDuplicates(concatenated)
         }
       } else {
-        collection = filterProjects(this.selected, this.projects, this.primaryMatchType)
+        collection = filterProjects(this.selected, this.projects, this.settings.behavior.tagMatchType)
       }
       if (collection.length === 0) { collection = false }
       const payload = { type: 'filtered', collection }

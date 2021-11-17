@@ -10,11 +10,7 @@
     "lastTag": "other",
     "externalLinksTargetBlank": true,
     "tagMatchType": "and",
-    "targetCategoryMatch": [
-      { "categorySlug": "project-category", "tagMatchType": "and" },
-      { "categorySlug": "storage-type", "tagMatchType": "or" },
-      { "categorySlug": "software-type", "tagMatchType": "or" }
-    ],
+    "targetCategoryMatch": [],
     "excludeFilterAllTag": true,
     "includeGranularFilterClearButton": true
   },
