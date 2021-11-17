@@ -45,6 +45,18 @@ const filterDuplicates = (array) => {
   return array.filter(({slug}, index) => !ids.includes(slug, index + 1))
 }
 
+const mutualInclusionResults = (set, collection) => {
+  const results = []
+  const len = set.length
+  for (let i = 0; i < len; i++) {
+    const memberID = set[i].slug
+    if (collection.every(array => array.some(project => project.slug === memberID))) {
+      results.push(set[i])
+    }
+  }
+  return results
+}
+
 
 // ====================================================================== Export
 export default {
@@ -106,30 +118,30 @@ export default {
     filtered () {
       let collection = []
       if (this.targets.length && this.selected.length) {
+        // filter projects separately within each target primary category
+        // according to respective filtering type
         this.targets.forEach((category) => {
           const selection = this.selected.filter((tag) => category.tags.includes(tag))
           if (selection.length) {
             collection.push(filterProjects(selection, this.projects, category.match))
           }
         })
+
         const concatenated = [].concat.apply([], collection)
         if (this.settings.behavior.tagMatchType === 'and') {
-          const andCollection = []
-          const results = filterDuplicates(concatenated)
-          const len = results.length
-          for (let i = 0; i < len; i++) {
-            const result = results[i].slug
-            if (collection.every(array => array.some(project => project.slug === result))) {
-              andCollection.push(results[i])
-            }
-          }
-          collection = andCollection
+          // include only projects appearing in every category's search result
+          collection = mutualInclusionResults(filterDuplicates(concatenated), collection)
         } else {
+          // include all individual category results
           collection = filterDuplicates(concatenated)
         }
+
+      // if no target categories specified or no tags are selected
+      // conduct regular filtering
       } else {
         collection = filterProjects(this.selected, this.projects, this.settings.behavior.tagMatchType)
       }
+
       if (collection.length === 0) { collection = false }
       const payload = { type: 'filtered', collection }
       this.setCollection(payload)
