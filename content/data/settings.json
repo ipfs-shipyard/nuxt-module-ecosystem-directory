@@ -9,11 +9,12 @@
     "firstTag": "",
     "lastTag": "other",
     "externalLinksTargetBlank": true,
-    "tagMatchType": "or",
-    "targetCategoryMatch": {
-      "categorySlug": "",
-      "tagMatchType": "and"
-    },
+    "tagMatchType": "and",
+    "targetCategoryMatch": [
+      { "categorySlug": "project-category", "tagMatchType": "and" },
+      { "categorySlug": "storage-type", "tagMatchType": "or" },
+      { "categorySlug": "software-type", "tagMatchType": "or" }
+    ],
     "excludeFilterAllTag": true,
     "includeGranularFilterClearButton": true
   },
