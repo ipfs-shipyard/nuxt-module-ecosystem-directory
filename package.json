@@ -32,8 +32,8 @@
   },
   "dependencies": {
     "@agency-undone/au-nuxt-module-zero": "^1.0.13",
-    "countly-sdk-web": "^20.11.2",
-    "filesize": "^8.0.0",
+    "countly-sdk-web": "^20.11.3",
+    "filesize": "^8.0.6",
     "fs-extra": "^10.0.0"
   },
   "engines": {
