@@ -26,6 +26,7 @@
     "showcase": true,
     "defaultView": "grid",
     "alternateLayout": true,
+    "swapVideoPositionSingular": false,
     "hideNonDefaultView": false,
     "hidePagination": false,
     "hideSort": false,
