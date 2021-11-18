@@ -9,11 +9,8 @@
     "firstTag": "",
     "lastTag": "other",
     "externalLinksTargetBlank": true,
-    "tagMatchType": "or",
-    "targetCategoryMatch": {
-      "categorySlug": "",
-      "tagMatchType": "and"
-    },
+    "tagMatchType": "and",
+    "targetCategoryMatch": [],
     "excludeFilterAllTag": true,
     "includeGranularFilterClearButton": true
   },

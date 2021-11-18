@@ -1,5 +1,5 @@
 <template>
-  <Zero_Filters__Filters
+  <Shipyard_Filters
     v-if="ProjectFilters"
     id="filter-panel"
     :projects="collection"
@@ -76,7 +76,7 @@
       </div>
 
     </div>
-  </Zero_Filters__Filters>
+  </Shipyard_Filters>
 </template>
 
 <script>
