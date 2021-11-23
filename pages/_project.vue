@@ -86,7 +86,7 @@
                           class="focus-visible"
                           :data-tooltip="generateToolTip(link.text)"
                           data-tooltip-theme="dark">
-                          {{ truncateLinks ? $TruncateString(link.text, 12, '...', type = 'double') : link.text }}
+                          {{ truncateLinks ? $TruncateString(link.text, 14, '...', type = 'double', 14) : link.text }}
                         </a>
                       </li>
                     </template>
@@ -414,6 +414,9 @@ export default {
         return null
       }
       return text.length > 23 ? text : false
+    },
+    stripSlashes (text) {
+      return project.primaryCta.url.substring(0, 2) == '\/\/' ? project.primaryCta.url.substring(2) : project.primaryCta.url
     }
   }
 }
