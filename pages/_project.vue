@@ -38,7 +38,7 @@
                 data-tooltip-theme="dark">
                 {{ project.primaryCta.text }}
               </span>
-            </a>            
+            </a>
             <nuxt-link to="/" class="secondary-cta focus-visible">
               <span class="text">
                 {{ secondaryCtaButtonText }}
@@ -86,7 +86,7 @@
                           class="focus-visible"
                           :data-tooltip="generateToolTip(link.text)"
                           data-tooltip-theme="dark">
-                          {{ truncateLinks ? $TruncateString(link.text, 12, '...', type = 'double') : link.text }}
+                          {{ truncateLinks ? $TruncateString(link.text, 14, '...', type = 'double', 14) : link.text }}
                         </a>
                       </li>
                     </template>
