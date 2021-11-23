@@ -28,17 +28,7 @@
             {{ description }}
           </p>
           <div class="ctas">
-            <a
-              v-if="project.primaryCta && project.primaryCta.url && project.primaryCta.text"
-              :href="project.primaryCta.url"
-              target="_blank"
-              class="primary-cta focus-visible">
-              <span
-                :data-tooltip="project.primaryCta.url"
-                data-tooltip-theme="dark">
-                {{ project.primaryCta.text }}
-              </span>
-            </a>
+            
             <nuxt-link to="/" class="secondary-cta focus-visible">
               <span class="text">
                 {{ secondaryCtaButtonText }}
@@ -414,6 +404,9 @@ export default {
         return null
       }
       return text.length > 23 ? text : false
+    },
+    stripSlashes (text) {
+      return project.primaryCta.url.substring(0, 2) == '\/\/' ? project.primaryCta.url.substring(2) : project.primaryCta.url
     }
   }
 }
