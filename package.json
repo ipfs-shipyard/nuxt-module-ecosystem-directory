@@ -1,6 +1,6 @@
 {
   "name": "@agency-undone/nuxt-module-ecosystem-directory",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "description": "A Nuxt module that loads all the boilerplate layouts, pages, components, styles, stores and functionality to run the Ecosystem Directory.",
   "keywords": [
     "Nuxt",
