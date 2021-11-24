@@ -34,7 +34,7 @@
               target="_blank"
               class="primary-cta focus-visible">
               <span
-                :data-tooltip="project.primaryCta.url"
+                :data-tooltip="stripProtocol(project.primaryCta.url)"
                 data-tooltip-theme="dark">
                 {{ project.primaryCta.text }}
               </span>
@@ -425,8 +425,8 @@ export default {
       }
       return text.length > 23 ? text : false
     },
-    stripSlashes (text) {
-      return project.primaryCta.url.substring(0, 2) == '\/\/' ? project.primaryCta.url.substring(2) : project.primaryCta.url
+    stripProtocol (text) {
+      return text.substring(0, 2) == '\/\/' ? text.substring(2) : text
     }
   }
 }
