@@ -86,7 +86,7 @@
                           class="focus-visible"
                           :data-tooltip="generateToolTip(link.text)"
                           data-tooltip-theme="dark">
-                          {{ truncateLinks ? $TruncateString(link.text, 14, '...', type = 'double', 14) : link.text }}
+                          {{ truncateLinks ? $TruncateString(link.text, truncateChars[0], '...', type = 'double', truncateChars[1]) : link.text }}
                         </a>
                       </li>
                     </template>
@@ -381,6 +381,16 @@ export default {
     },
     truncateLinks () {
       return this.settings.visibility.truncateLinks
+    },
+    truncateChars () {
+      const truncateCharacters = this.settings.visibility.truncateCharacters
+      if (!truncateCharacters) { 
+        return [12, 12]
+      } else if ( truncateCharacters.length === 1 ) {
+        return [truncateCharacters[0], truncateCharacters[0]]
+      } else {
+        return truncateCharacters
+      }
     }
   },
 

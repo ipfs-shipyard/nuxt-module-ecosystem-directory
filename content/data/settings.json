@@ -32,6 +32,7 @@
     "setPageSize": 20,
     "disableSingulars": 2,
     "truncateLinks": true,
+    "truncateCharacters": [12, 10],
     "mediaAltAtts": true,
     "linksAltAtts": true,
     "singularTagLinks": true
