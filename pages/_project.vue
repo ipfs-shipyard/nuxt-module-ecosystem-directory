@@ -34,7 +34,7 @@
               target="_blank"
               class="primary-cta focus-visible">
               <span
-                :data-tooltip="project.primaryCta.url"
+                :data-tooltip="stripProtocol(project.primaryCta.url)"
                 data-tooltip-theme="dark">
                 {{ project.primaryCta.text }}
               </span>
@@ -86,7 +86,7 @@
                           class="focus-visible"
                           :data-tooltip="generateToolTip(link.text)"
                           data-tooltip-theme="dark">
-                          {{ truncateLinks ? $TruncateString(link.text, 12, '...', type = 'double') : link.text }}
+                          {{ truncateLinks ? $TruncateString(link.text, truncateChars[0], '...', type = 'double', truncateChars[1]) : link.text }}
                         </a>
                       </li>
                     </template>
@@ -381,6 +381,16 @@ export default {
     },
     truncateLinks () {
       return this.settings.visibility.truncateLinks
+    },
+    truncateChars () {
+      const truncateCharacters = this.settings.visibility.truncateCharacters
+      if (!truncateCharacters) { 
+        return [12, 12]
+      } else if ( truncateCharacters.length === 1 ) {
+        return [truncateCharacters[0], truncateCharacters[0]]
+      } else {
+        return truncateCharacters
+      }
     }
   },
 
@@ -414,6 +424,9 @@ export default {
         return null
       }
       return text.length > 23 ? text : false
+    },
+    stripProtocol (text) {
+      return text.substring(0, 2) == '\/\/' ? text.substring(2) : text
     }
   }
 }
