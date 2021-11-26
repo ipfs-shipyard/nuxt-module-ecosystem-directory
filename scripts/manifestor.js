@@ -1,7 +1,7 @@
 // ///////////////////////////////////////////////////////// Imports & Variables
 // -----------------------------------------------------------------------------
 const Fs = require('fs-extra')
-const Sass = require('node-sass')
+const Sass = require('sass')
 
 const paths = {
   prefixed: false, // key to ensure path prefixing only happens once during compile
