@@ -20,7 +20,6 @@ const SetProjectDefaults = (store) => (project) => {
   const check = (schema, field) => {
     for (const key in schema) {
       if (field.hasOwnProperty(key)) {
-        console.log(key)
         const schemaValue = schema[key]
         const fieldValue = field[key]
         const schemaType = typeof schemaValue
