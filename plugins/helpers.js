@@ -15,6 +15,7 @@ const Filesize = require('filesize')
  *
  */
 const SetProjectDefaults = (store) => (project) => {
+  console.log(project.name)
   const projectSchema = store.getters['global/siteContent']['project-schema']
   const check = (schema, field) => {
     for (const key in schema) {
