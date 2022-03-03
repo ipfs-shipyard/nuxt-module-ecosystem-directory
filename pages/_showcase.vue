@@ -31,6 +31,46 @@ import { mapGetters } from 'vuex'
 
 import ShowcaseData from '@/static/content/showcase-data.json'
 
+// =================================================================== Functions
+const calculateCategoryThresholds = (instance) => {
+  let sum = 0
+  const categories = []
+  const thresholds = {}
+  Object.keys(instance.taxonomy.tags).forEach((taxonomySlug) => {
+    const projects = instance.projectList.filter((project) => {
+      const projectTags = project.tags[instance.category] || []
+      return projectTags.includes(taxonomySlug)
+    })
+    categories.push(projects)
+  })
+  categories.sort((a, b) => b.length - a.length).filter(item => item.length > 0)
+  categories.forEach(item => { sum = sum + item.length })
+  const third = sum / 3
+
+  let large = 0
+  for (let i = 0; i < categories.length; i++) {
+    if (large < third) {
+      large = large + categories[i].length
+    } else {
+      thresholds.large = categories[i - 1].length
+      break;
+    }
+  }
+
+  let small = 0
+  for (let j = categories.length - 1; j > -1; j--) {
+    if (small < third) {
+
+      small = small + categories[j].length
+    } else {
+      thresholds.medium = categories[j].length
+      break;
+    }
+  }
+
+  return thresholds
+}
+
 // ====================================================================== Export
 export default {
   name: 'ShowcaseView',
@@ -126,11 +166,14 @@ export default {
     projectList () {
       return ShowcaseData.projects
     },
+    categoryThresholds () {
+      return calculateCategoryThresholds(this)
+    },
     mediumProjectMinLength () {
-      return !isNaN(this.$route.query.md) ? parseInt(this.$route.query.md) : 10
+      return !isNaN(this.$route.query.md) ? parseInt(this.$route.query.md) : this.categoryThresholds.medium
     },
     largeProjectMinLength () {
-      const minLength = !isNaN(this.$route.query.lg) ? parseInt(this.$route.query.lg) : 25
+      const minLength = !isNaN(this.$route.query.lg) ? parseInt(this.$route.query.lg) : this.categoryThresholds.large
       return minLength <= this.mediumProjectMinLength ? this.mediumProjectMinLength + 1 : minLength
     }
   },
@@ -150,7 +193,6 @@ export default {
 
         if (projects.length < 1) { return }
 
-        // Sort content into blocks based on size
         if (projects.length >= this.largeProjectMinLength) {
           taxonomyData.size = 'lg'
           taxonomyData.projects = projects.slice(0, this.largeProjectBlockSize)
