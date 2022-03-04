@@ -159,10 +159,10 @@ export default {
       return calculateCategoryThresholds(this)
     },
     mediumProjectMinLength () {
-      return !isNaN(this.$route.query.md) ? parseInt(this.$route.query.md) : this.categoryThresholds.medium
+      return !isNaN(this.$route.query.md) ? parseInt(this.$route.query.md) : Math.max(this.categoryThresholds.medium, this.smallProjectBlockSize + 1)
     },
     largeProjectMinLength () {
-      const minLength = !isNaN(this.$route.query.lg) ? parseInt(this.$route.query.lg) : this.categoryThresholds.large
+      const minLength = !isNaN(this.$route.query.lg) ? parseInt(this.$route.query.lg) : Math.max(this.categoryThresholds.large, this.mediumProjectBlockSize + 1)
       return minLength <= this.mediumProjectMinLength ? this.mediumProjectMinLength + 1 : minLength
     }
   },
