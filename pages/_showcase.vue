@@ -33,7 +33,6 @@ import ShowcaseData from '@/static/content/showcase-data.json'
 
 // =================================================================== Functions
 const calculateCategoryThresholds = (instance) => {
-  let sum = 0
   const categories = []
   const thresholds = {}
   Object.keys(instance.taxonomy.tags).forEach((taxonomySlug) => {
@@ -44,30 +43,20 @@ const calculateCategoryThresholds = (instance) => {
     categories.push(projects)
   })
   categories.sort((a, b) => b.length - a.length).filter(item => item.length > 0)
-  categories.forEach(item => { sum = sum + item.length })
-  const third = sum / 3
+  const third = categories.map(a => a.length).reduce((a, b) => a + b, 0) / 3
 
-  let large = 0
+  let sum = 0
+  let key = 'large'
+  let mult = 1
   for (let i = 0; i < categories.length; i++) {
-    if (large < third) {
-      large = large + categories[i].length
-    } else {
-      thresholds.large = categories[i - 1].length
-      break;
+    sum = sum + categories[i].length
+    if (sum > (third * mult)) {
+      thresholds[key] = categories[i].length
+      if (mult === 2) { break; }
+      mult = 2
+      key = 'medium'
     }
   }
-
-  let small = 0
-  for (let j = categories.length - 1; j > -1; j--) {
-    if (small < third) {
-
-      small = small + categories[j].length
-    } else {
-      thresholds.medium = categories[j].length
-      break;
-    }
-  }
-
   return thresholds
 }
 
