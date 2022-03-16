@@ -105,6 +105,7 @@ export default {
   methods: {
     getData () {
       this.$store.dispatch('global/getBaseData', { key: 'core' })
+      this.$store.dispatch('global/getBaseData', { key: 'general' })
     },
     generateWidths () {
       let arr = []
