@@ -31,7 +31,7 @@
 
           <div
             :class="['indicator', 'slot-1', index % 2 === 0 ? 'above' : 'below']"
-            :style="`width: ${item.segment.s1.length}px; left: ${item.segment.ihw}px; top: ${getLabelOffset(item, index, 'first')}px;`">
+            :style="`width: ${item.segment.s1.length}px; top: ${getLabelOffset(item, index, 'first')}px;`">
             <template v-if="item.segment.s1.occupied">
               <div class="label">
                 <div class="stem-relative-wrap" :style="`width: ${item.label.width}px;`">
@@ -46,7 +46,7 @@
           </div>
           <div
             :class="['indicator', 'slot-2', index % 2 === 0 ? 'above' : 'below']"
-            :style="`width: ${item.segment.s2.length}px; left: ${item.segment.ihw}px; top: ${getLabelOffset(item, index, 'second')}px;`">
+            :style="`width: ${item.segment.s2.length}px; top: ${getLabelOffset(item, index, 'second')}px;`">
             <template v-if="item.segment.s2.occupied">
               <div class="label">
                 <div class="stem-relative-wrap" :style="`width: ${item.label.width}px;`">
@@ -61,7 +61,7 @@
           </div>
           <div
             :class="['indicator', 'slot-3', index % 2 === 0 ? 'above' : 'below']"
-            :style="`width: ${item.segment.s3.length}px; left: ${item.segment.ihw}px; top: ${getLabelOffset(item, index, 'third')}px;`">
+            :style="`width: ${item.segment.s3.length}px; top: ${getLabelOffset(item, index, 'third')}px;`">
             <template v-if="item.segment.s3.occupied">
               <div class="label">
                 <div class="stem-relative-wrap" :style="`width: ${item.label.width}px;`">
@@ -303,9 +303,9 @@ export default {
       measured: false,
       random: 10,
       tiers: {
-        first: 60,
-        second: 100,
-        third: 140
+        first: 50,
+        second: 90,
+        third: 130
       }
     }
   },
@@ -421,6 +421,7 @@ export default {
   @include small {
     padding: 0 3rem;
     padding-bottom: 0;
+    height: unset !important;
   }
   @include tiny {
     min-width: 16rem;
@@ -510,6 +511,7 @@ $segmentStemGap: 6px;
   }
   .indicator {
     position: absolute;
+    left: 50%;
 
     &.below {
       transform: translateY(2rem);
