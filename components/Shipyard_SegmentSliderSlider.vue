@@ -15,10 +15,10 @@
         </button>
 
         <h3
-          :key="`${currentCategory.label}-medium`"
+          :key="`${heading}-medium`"
           ref="navTitle"
           class="title-between-buttons transition-content">
-          {{ currentCategory.label }}
+          {{ heading }}
         </h3>
 
         <button
@@ -30,16 +30,16 @@
         </button>
       </div>
 
-      <div :key="currentCategory.label" class="transition-content">
+      <div :key="heading" class="transition-content">
         <div ref="content">
           <div class="title-large-screen">
             <h3>
-              {{ currentCategory.label }}
+              {{ heading }}
             </h3>
           </div>
 
           <div class="description">
-            {{ currentCategory.description ? currentCategory.description : '' }}
+            {{ description }}
           </div>
         </div>
 
@@ -108,17 +108,23 @@ export default {
     filterToggleButtonText () {
       return this.siteContent.index.page_content.segment_slider.filter_toggle_button_text
     },
-    logos () {
-      if (this.currentCategory.hasOwnProperty('logos')) {
-        return this.currentCategory.logos
-      }
-      return false
-    },
     currentCategory () {
       if (this.selectedSeg in this.segmentCollection) {
         return this.segmentCollection[this.selectedSeg]
       }
       return {}
+    },
+    heading () {
+      return this.currentCategory.label ? this.currentCategory.label.text : ''
+    },
+    description () {
+      return this.currentCategory.description ? this.currentCategory.description : ''
+    },
+    logos () {
+      if (this.currentCategory.hasOwnProperty('logos')) {
+        return this.currentCategory.logos
+      }
+      return false
     },
     cardHeight () {
       if (this.contentHeight) {
