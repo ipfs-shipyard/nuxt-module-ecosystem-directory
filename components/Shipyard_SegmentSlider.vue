@@ -32,7 +32,6 @@
 <script>
 // ===================================================================== Imports
 import { mapGetters } from 'vuex'
-
 // =================================================================== Functions
 const loadTaxonomies = (instance) => {
   const primary = {}
@@ -44,17 +43,14 @@ const loadTaxonomies = (instance) => {
       description: categories[i].description
     }
   }
-
   if (primary.hasOwnProperty(instance.settings.behavior.firstTag)) {
     primary[instance.settings.behavior.firstTag].priority = 'first'
   }
   if (primary.hasOwnProperty(instance.settings.behavior.lastTag)) {
     primary[instance.settings.behavior.lastTag].priority = 'last'
   }
-
   return primary
 }
-
 const initCategoryLogos = (instance) => {
   const logos = {}
   const categories = instance.primaryCategory.tags
@@ -63,13 +59,11 @@ const initCategoryLogos = (instance) => {
   }
   return logos
 }
-
 const createLabels = (instance, projects) => {
   const tags = []
   const len = projects.length
   const primary = loadTaxonomies(instance)
   const logos = initCategoryLogos(instance)
-
   for (let i = 0; i < len; i++) {
     const projectTaxonomy = projects[i].taxonomies.find(category => category.slug === instance.primaryCategory.slug)
     if (projectTaxonomy.tags) {
@@ -89,7 +83,6 @@ const createLabels = (instance, projects) => {
       }
     }
   }
-
   if (tags.length) {
     const categories = [...new Set(tags)]
     const items = []
@@ -101,9 +94,7 @@ const createLabels = (instance, projects) => {
         let selection = []
         const label = primary[category].label
         const description = primary[category].description
-        const l = label.split('').length
         const icons = logos[category]
-
         if (icons.length) {
           if (icons.length > 3) {
             for (let j = 0; j < 3; j++) {
@@ -115,16 +106,13 @@ const createLabels = (instance, projects) => {
             selection = icons
           }
         }
-
         tags.forEach((tag) => { if (tag === category) { count++ } })
         const obj = {
-          label,
+          label: { text: label },
           description,
+          count,
           slug: category,
-          size: count * 10,
-          chars: l,
-          logos: selection,
-          display: false
+          logos: selection
         }
         if (primary[category].hasOwnProperty('priority')) {
           obj.priority = primary[category].priority
@@ -135,12 +123,6 @@ const createLabels = (instance, projects) => {
     return items
   }
   return false
-}
-
-const getLongestWord = (label) => {
-  const arr = []
-  label.split(' ').forEach((word) => { arr.push(word.split('').length) })
-  return Math.max(...arr)
 }
 
 // ====================================================================== Export
