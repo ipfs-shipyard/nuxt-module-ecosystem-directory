@@ -35,7 +35,8 @@
     "truncateCharacters": [12, 10],
     "mediaAltAtts": true,
     "linksAltAtts": true,
-    "singularTagLinks": true
+    "singularTagLinks": true,
+    "indexHeadingEntityCount": false
   },
   "embeddable_view": {
     "host": "https://example.on.fleek.co/",
