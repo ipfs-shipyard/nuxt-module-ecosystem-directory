@@ -55,7 +55,7 @@
             <div class="col">
 
               <h3 class="heading">
-                {{ pageData.section_filter.heading }}
+                {{ filterSectionHeading }}
               </h3>
 
               <div class="description">
@@ -239,7 +239,8 @@ export default {
       siteContent: 'global/siteContent',
       routeQuery: 'filters/routeQuery',
       filterPanelOpen: 'filters/filterPanelOpen',
-      taxonomyLabels: 'filters/taxonomyLabels'
+      taxonomyLabels: 'filters/taxonomyLabels',
+      projects: 'projects/projects'
     }),
     settings () {
       return this.siteContent.settings
@@ -260,6 +261,21 @@ export default {
         return true
       }
       return false
+    },
+    filterSectionHeading () {
+      if (this.settings.visibility.indexHeadingEntityCount) {
+        const heading = this.pageData.section_filter.heading
+        const arr = heading.split(' ')
+        const index = arr.findIndex((word) => {
+          return (
+            word === this.settings.nomenclature.entityTermPlural
+            || word === this.settings.nomenclature.entityTerm
+          )
+        })
+        arr.splice(index, 0, this.projects.length)
+        return arr.join(' ')
+      }
+      return this.pageData.section_filter.heading
     }
   },
 
