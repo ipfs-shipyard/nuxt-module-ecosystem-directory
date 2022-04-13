@@ -12,7 +12,8 @@
     "tagMatchType": "and",
     "targetCategoryMatch": [],
     "excludeFilterAllTag": true,
-    "includeGranularFilterClearButton": true
+    "includeGranularFilterClearButton": true,
+    "defaultSelectedFilters": ""
   },
   "visibility": {
     "excludeSingulars": false,
