@@ -13,7 +13,7 @@
     "targetCategoryMatch": [],
     "excludeFilterAllTag": true,
     "includeGranularFilterClearButton": true,
-    "defaultSelectedFilters": ""
+    "defaultSelectedFilters": []
   },
   "visibility": {
     "excludeSingulars": false,

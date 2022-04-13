@@ -112,10 +112,8 @@ const parseURLParams = (instance, next) => {
     })
   } else {
     const defaultTags = instance.siteContent.settings.behavior.defaultSelectedFilters
-    if (defaultTags) {
-      const data = defaultTags.split(',')
-        .filter(tag => instance.taxonomyLabels.hasOwnProperty(tag))
-        .join(',')
+    if (defaultTags?.length) {
+      const data = defaultTags.filter(tag => instance.taxonomyLabels.hasOwnProperty(tag)).join(',')
       instance.setRouteQuery({
         key: 'tags',
         data: data
