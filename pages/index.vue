@@ -332,12 +332,14 @@ export default {
     collapseSegmentAndFeaturedSliders () {
       if (this.segmentSlider) {
         this.segmentSlider = false
+        this.sectionHeight = 0
+        window.scrollTo(0, 0)
       }
       if (this.featuredSlider) {
         this.featuredSlider = false
+        this.sectionHeight = 0
+        window.scrollTo(0, 0)
       }
-      this.sectionHeight = 0
-      window.scrollTo(0, 0)
     },
     resetSectionHeight () {
       if (this.$refs.collapsibleSection.firstElementChild) {

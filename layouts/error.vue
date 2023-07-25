@@ -94,6 +94,7 @@ export default {
   },
 
   mounted () {
+    console.log('error layout')
     if (this.$Countly) {
       this.$Countly.trackEvent('404_NOT_FOUND', {
         path: this.$route.path,
